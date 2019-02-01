@@ -4,11 +4,20 @@
   flex-direction: column;
   justify-content: flex-start;
 }
-
+.zomato-trending{
+  margin-top: 80px;
+}
 .zomato-app-bar{
   justify-content: space-between;
   padding-left: 0 !important;
-
+  background-color: white;
+  color: black;
+}
+.zomato-trending-app-bar{
+  position: fixed;
+  top: 0;
+  z-index: 2;
+  width: 100%;
 }
 .zomato-app-bar-title-menu{
   display: flex;
@@ -18,7 +27,7 @@
   height: 200px;
   width: 400px;
 }
-.zomato-trending-cards{
+.zomato-trending-cards,.zomato-restaurant-search-cards{
   display: grid;
   grid-template-columns: 30% 30% 30%;
   grid-gap: 2%;
@@ -31,3 +40,29 @@
   flex-direction: column;
   justify-content: space-between;
 }
+.zomato-trending-card-content p{
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+.zomato-trending-title{
+  font-size: 2.5rem;
+  margin: 2% 8%;
+}
+.zomato-trending-card-rating-button{
+  color: white;
+  font-size: small;
+  padding: 2px 7px;
+  border-radius: 4px;
+}
+.zomato-trending-card-footer{
+  display: flex;
+  justify-content: space-between;
+}
+.zomato-trending-app-bar-search{
+  background-color: whitesmoke;
+}
+.zomato-search{
+  margin-top: 80px;
+}
+
