@@ -11,7 +11,10 @@ const RestaurantsSearch = (props) => {
                 props.searchResults.map(restaurant =>{
                     return(
                         <div className="zomato-restaurant-search-card">
-                            <RestaurantCard restaurantData={restaurant} />
+                            <RestaurantCard 
+                                restaurantData={restaurant} 
+                                restaurantDataToBookTable={props.restaurantDataToBookTable}
+                            />
                         </div>
                     )                
                 })

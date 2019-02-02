@@ -65,4 +65,93 @@
 .zomato-search{
   margin-top: 80px;
 }
+.zomato-home{
+  margin-top:80px;
+}
+.zomato-side-navbar{
+  border-top: 1px solid rgba(0,0,0,0.1);
+  width: 250px;
+  display: flex;
+  flex-direction: column;
+  margin-top: 65px;
+}
+.zomato-side-navbar button{
+  background: transparent;
+  border: none;
+  padding: 15px 0px;
+  font-size: large;
+  font-family: inherit;
+  outline: none;
+  cursor: pointer;
+}
+.zomato-side-navbar button:focus{
+  background-color: rgb(0, 0, 0,0.1);
+}
+.zomato-bookings{
+  margin-top: 80px;
+}
+.zomato-bookings-card-image{
+  height: 90%;
+  width: 90%;
+  background-position: center;
+  background-size: cover;
+  padding: 10px 10px;
+  border-radius: 15px;
+}
 
+.zomato-bookings-card{
+  display: grid;
+  grid-template-columns: 25% 55% 20%;
+  align-items: center;
+  height: 200px;
+  margin: 3% 10%;
+  border: 1px solid rgb(0, 0, 0,0.1);
+}
+
+.zomato-bookings-card-content {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  height: 80%;
+  width:90%;
+}
+/* .zomato-bookings-card-content section {
+  margin: 15px;
+} */
+.zomato-bookings-card-title{
+  font-family: inherit;
+  font-size: x-large;
+}
+.zomato-bookings-card-submit{
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  height: 80%;
+  width: 80%;
+  justify-content: space-between;
+}
+
+.zomato-bookings-card-button{
+  color: white !important;
+  background-color: green !important;
+}
+.zomato-bookings-card-button:hover{
+    background-color: rgb(2, 75, 2) !important;
+}
+.zomato-user-profile{
+  margin-top: 80px;
+  display: flex;
+  justify-content: center;
+}
+.zomato-user-profile-avatar{
+  position: relative;
+}
+.zomato-user-profile img{
+  height: 200px;
+  position: absolute;
+  border-radius: 50%;
+  /* left: -85px; */
+}
+.zomato-user-profile-details{
+  margin-top: 250px;
+}

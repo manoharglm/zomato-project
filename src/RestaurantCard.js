@@ -30,7 +30,7 @@ const RestaurantCard = (props)=> {
               </CardContent>
             </CardActionArea>
             <CardActions className='zomato-trending-card-footer'>
-              <Button size="small" color="primary">
+              <Button size="small" color="primary" onClick={()=>props.restaurantDataToBookTable(props.restaurantData)}>
                 Book Table
               </Button>
               <p style={{backgroundColor:`#${props.restaurantData.user_rating.rating_color}`}} className='zomato-trending-card-rating-button'>

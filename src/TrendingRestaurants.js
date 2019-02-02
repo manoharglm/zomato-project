@@ -21,6 +21,7 @@ class TrendingRestaurants extends Component {
       });
     });
   };
+
   render() {
     return (
       <div className="zomato-trending">
@@ -28,7 +29,10 @@ class TrendingRestaurants extends Component {
         <div className="zomato-trending-cards">
           {
             this.state.trendingRestaurants.map(restaurant => {
-              return <RestaurantCard restaurantData={restaurant} />
+              return <RestaurantCard 
+                        restaurantData={restaurant} 
+                        restaurantDataToBookTable={this.props.restaurantDataToBookTable}
+                      />
             })
           }
         </div>
