@@ -15,8 +15,9 @@ const NavigationBar = (props) => {
             <IconButton 
               color="inherit" 
               aria-label="Open drawer"
+              onClick={()=>props.openSideNavigationBar()}
               >
-              <MenuIcon onClick={()=>props.openSideNavigationBar()}/>
+              <MenuIcon/>
             </IconButton>
             <Typography variant="h6" color="inherit" noWrap>
               Zomato

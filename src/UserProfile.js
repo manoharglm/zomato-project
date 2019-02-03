@@ -18,7 +18,6 @@ class UserProfile extends Component {
   }
 
   render() {
-    console.log(this.state.userDetails)
     return (
       <div className='zomato-user-profile'>
         <div className='zomato-user-profile-avatar'>
@@ -26,10 +25,10 @@ class UserProfile extends Component {
         </div>
         <div className='zomato-user-profile-details'>
           <section>
-            <p>{this.state.userDetails.username}</p>
+            <span className='zomato-user-profile-username'>{this.state.userDetails.username}</span>
+            <span>{`Member since ${this.state.userDetails.date}`}</span>
           </section>
           <section>
-            <span>{`Member since ${this.state.userDetails.date}`}</span>
             <h5>User Details</h5>
             <p>{this.state.userDetails.email}</p>
             <p>{this.state.userDetails.phone}</p>

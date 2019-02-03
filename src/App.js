@@ -36,7 +36,7 @@ class App extends Component {
   }
   getSearchResults = (e) => {
     e.preventDefault()
-    if((this.state.searchText).length !==0){
+    if((this.state.searchText).length >= 0){
       RequestsAPI.getSearchResults(this.state.searchText).then(restaurants => {
         this.setState({
           searchResults: restaurants
@@ -49,11 +49,6 @@ class App extends Component {
       login: bool
     })
   }
-  // redirectTOSearch=(bool)=>{
-  //   this.setState({
-  //     gotoSearch:true
-  //   })
-  // }
   openSideNavigationBar = () => {
     this.setState({
       sideNavBar: !this.state.sideNavBar
@@ -75,12 +70,16 @@ class App extends Component {
     })  
   }
   restaurantDataToBookTable = (restaurant) =>{
-      this.setState({
-        bookTableDialogBox: !this.state.bookTableDialogBox,
-        restaurantData:restaurant
-      })
+    this.setState({
+      bookTableDialogBox: !this.state.bookTableDialogBox,
+      restaurantData:restaurant
+    })
   }
   bookTable =(people,date,time)=>{
+    console.log(people);
+    console.log(date);
+    console.log(time);
+
     RequestsAPI.bookTable(people,date,time,this.state.restaurantData,this.state.username)
   }
   render() {

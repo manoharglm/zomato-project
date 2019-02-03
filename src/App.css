@@ -78,7 +78,8 @@
 .zomato-side-navbar button{
   background: transparent;
   border: none;
-  padding: 15px 0px;
+  height: 50px;
+  width: 100%;
   font-size: large;
   font-family: inherit;
   outline: none;
@@ -88,6 +89,10 @@
   background-color: rgb(0, 0, 0,0.1);
 }
 .zomato-bookings{
+  display: flex;
+  flex-direction: column-reverse;
+}
+.zomato-bookings-title{
   margin-top: 80px;
 }
 .zomato-bookings-card-image{
@@ -150,8 +155,20 @@
   height: 200px;
   position: absolute;
   border-radius: 50%;
-  /* left: -85px; */
+  /* left: 100px; */
 }
 .zomato-user-profile-details{
   margin-top: 250px;
+}
+.zomato-user-profile-username{
+  display: flex;
+  font-size: xx-large;
+  flex-direction: column;
+  align-items: center;
+}
+/* .zomato-book-table-dialog-box{
+  width: 500px;
+} */
+.zomato-book-table-dialog-box-select{
+  width:200px;
 }

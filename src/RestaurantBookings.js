@@ -17,11 +17,10 @@ componentDidMount(){
   })
 }
   render() {
-    console.log(this.state.bookings)
-
     return (
+      <div>          
+        <h2 className='zomato-bookings-title'>Your Bookings</h2>
         <div className='zomato-bookings'>
-          <h2>Your Bookings</h2>
           {
             this.state.bookings.map(booking =>{
               return <BookingCard
@@ -30,6 +29,8 @@ componentDidMount(){
             })
           }
         </div>
+        </div>
+
     );
   }
 }
