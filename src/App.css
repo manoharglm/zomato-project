@@ -102,6 +102,7 @@
   background-size: cover;
   padding: 10px 10px;
   border-radius: 15px;
+  object-fit: cover;
 }
 
 .zomato-bookings-card{
@@ -171,4 +172,49 @@
 } */
 .zomato-book-table-dialog-box-select{
   width:200px;
+}
+.zomato-book-table-form{
+  display: grid;
+  grid-template-columns: 250px 103px;
+  grid-gap: 50px;
+  margin: 35px 0px;
+}
+.restaurant-quickview-close-button-container{
+  display: flex;
+  justify-content: flex-end;
+  padding: 2%;
+  cursor: pointer;
+}
+.restaurant-quickview-close-button{
+  cursor: pointer;
+}
+.restaurant-quickview-image{
+  height: 350px;
+  object-fit: cover;
+  object-position: center;
+  width: 100%;
+  border-radius: 8px;
+}
+.restaurant-quickview-image-container{
+  display: flex;
+  justify-content: center;
+  border-radius: 8px;
+}
+.restaurant-quickview-container{
+  display: grid;
+  grid-template-columns: 60% 40%;
+  align-items: flex-start;
+  margin: 0% 5%;
+}
+.restaurant-quickview-content-title{
+  font-size: xx-large;
+}
+.restaurant-quickview-content{
+  padding: 0% 5%;
+}
+.restaurant-quickview{
+  padding: 1% 10%;
+}
+.restaurant-quickview-description{
+  margin: 0% 5%;
 }

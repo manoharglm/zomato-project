@@ -35,9 +35,8 @@ class BookTable extends React.Component {
                 >
                     <DialogTitle id="form-dialog-title">Book A Table</DialogTitle>
                     <DialogContent>
-                        <section>
+                        <div className='zomato-book-table-form'>
                             <TextField
-                                required
                                 onChange={(e) => this.handleChange(e)}
                                 id="date"
                                 label="Date"
@@ -49,7 +48,6 @@ class BookTable extends React.Component {
                                 }}
                             />
                             <TextField
-                                required
                                 onChange={(e) => this.handleChange(e)}
                                 label="Time"
                                 type="time"
@@ -62,7 +60,7 @@ class BookTable extends React.Component {
                                     step: 300,
                                 }}
                             />
-                        </section>
+                        </div>
                         <FormControl className='zomato-book-table-dialog-box-select' >
                             <InputLabel htmlFor="age-simple">Number of People</InputLabel>
                             <Select

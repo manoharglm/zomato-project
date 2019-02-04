@@ -11,6 +11,14 @@ import SideNavigationBar from './SideNavigationBar';
 import RestaurantBookings from './RestaurantBookings'
 import UserProfile from './UserProfile'
 import BookTable from './BookTable'
+import RestaurantQucikView from './RestaurantQuickView'
+import firebase from 'firebase'
+import StyledFirebaseAuth from 'react-firebaseui/StyledFirebaseAuth'
+
+firebase.initializeApp({
+  apiKey:'AIzaSyCX0DNvg_Mu3BgfG5tgwljLCdiLsoPZM04',
+  authDomain:'zomato-project-manohar.firebaseapp.com'
+})
 
 class App extends Component {
   constructor(props) {
@@ -27,7 +35,26 @@ class App extends Component {
       username:'manohar',
       bookTableDialogBox:false,
       restaurantData:[],
+      restaurantQucikView:false,
+      restaurantQucikViewData:'',
+      signedIn:false,
     };
+  }
+  uiConfig = { 
+    signInFlow: "popup",
+    signInOptions: [
+      firebase.auth.GoogleAuthProvider.PROVIDER_ID,
+    ],
+    callbacks: {
+      signInSuccess: () => false
+    }
+  }
+  componentDidMount = () =>{
+    firebase.auth().onAuthStateChanged(user =>{
+      this.setState({
+        signedIn:!!user
+      })
+    })
   }
   getSearchText = (e) => {
       this.setState({
@@ -68,6 +95,10 @@ class App extends Component {
     this.setState({
       trndingPage: !this.state.trndingPage
     })  
+    // function Transition(props) {
+    //     return <Slide direction="up" {...props} />;
+    // }
+    
   }
   restaurantDataToBookTable = (restaurant) =>{
     this.setState({
@@ -75,17 +106,27 @@ class App extends Component {
       restaurantData:restaurant
     })
   }
+  handleRestaurantQuickView=(restaurant)=>{
+    this.setState({
+      restaurantQucikView:!this.state.restaurantQucikView,
+      restaurantQucikViewData:restaurant
+    })
+  }
   bookTable =(people,date,time)=>{
-    console.log(people);
-    console.log(date);
-    console.log(time);
-
     RequestsAPI.bookTable(people,date,time,this.state.restaurantData,this.state.username)
   }
   render() {
     return (
       <Router>
         <div className="App">
+      (this.state.signedIn)
+      ? {console.log("signed in");
+      }
+      : <StyledFirebaseAuth
+            uiConfig={this.uiConfig}
+            firebaseAuth={firebase.auth()}
+          />
+    
           <SideNavigationBar
             openSideNavigationBar={this.openSideNavigationBar}
             open={this.state.sideNavBar}
@@ -103,6 +144,11 @@ class App extends Component {
             restaurantDataToBookTable={this.restaurantDataToBookTable}
             bookTable = {this.bookTable}
           />
+          <RestaurantQucikView
+            openQuickView={this.state.restaurantQucikView}
+            handleRestaurantQuickView={this.handleRestaurantQuickView}
+            restaurantData={this.state.restaurantQucikViewData}
+          />
           <Switch>
             <Route path='/' exact render={() =>
               <HomePage
@@ -112,6 +158,7 @@ class App extends Component {
             <Route path='/trending' exact render={() =>
               <TrendingRestaurants
                 restaurantDataToBookTable={this.restaurantDataToBookTable}
+                handleRestaurantQuickView={this.handleRestaurantQuickView}
               />}  
             />
             <Route path='/bookings' exact render={() =>

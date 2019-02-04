@@ -12,7 +12,9 @@ const RestaurantCard = (props)=> {
     return (
         <div className="zomato-trending-card" key={props.restaurantData.id}>
           <Card className="zomato-trending-card-content">
-            <CardActionArea>
+            <CardActionArea 
+              onClick={()=>props.handleRestaurantQuickView(props.restaurantData)}
+            >
               <CardMedia
                 className="zomato-trending-card-image"
                 image={props.restaurantData.featured_image}

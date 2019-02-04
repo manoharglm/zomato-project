@@ -32,6 +32,7 @@ class TrendingRestaurants extends Component {
               return <RestaurantCard 
                         restaurantData={restaurant} 
                         restaurantDataToBookTable={this.props.restaurantDataToBookTable}
+                        handleRestaurantQuickView={this.props.handleRestaurantQuickView}
                       />
             })
           }

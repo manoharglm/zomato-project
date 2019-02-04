@@ -24,7 +24,7 @@ let BookingCard = (props) => {
             <div className='zomato-bookings-card-submit'>
                 <div>
                     <div>
-                        <span>{props.bookingData.date} {props.bookingData.time}</span>
+                        <span>{props.bookingData.date} At {props.bookingData.time}</span>
                     </div>
                     <div>
                         <span></span>
