@@ -2,9 +2,10 @@ import React from 'react';
 import AppBar from "@material-ui/core/AppBar";
 import Toolbar from "@material-ui/core/Toolbar";
 import IconButton from "@material-ui/core/IconButton";
-import Typography from "@material-ui/core/Typography";
 import InputBase from "@material-ui/core/InputBase";
 import MenuIcon from "@material-ui/icons/Menu";
+import firebase from 'firebase'
+import StyledFirebaseAuth from 'react-firebaseui/StyledFirebaseAuth'
 
 const NavigationBar = (props) => {
   return (
@@ -19,9 +20,9 @@ const NavigationBar = (props) => {
               >
               <MenuIcon/>
             </IconButton>
-            <Typography variant="h6" color="inherit" noWrap>
-              Zomato
-              </Typography>
+            <p className='zomato-navbar-title'  noWrap>
+              Book A Table
+            </p>
           </section>
           <form className="zomato-trending-app-bar-search" onSubmit={(e) => props.getSearchResults(e)}>
             <InputBase 
@@ -30,7 +31,17 @@ const NavigationBar = (props) => {
               // onBlur={()=>{props.redirectTOSearch(false)}}
               onChange={(e) => props.getSearchText(e)} 
             />
+
           </form>
+          {
+            (props.signedIn)
+              ? <button className='navbar-logout' onClick={() => props.signOut()}>logout</button>
+              : <StyledFirebaseAuth
+                className='navbar-google-signin'
+                uiConfig={props.uiConfig}
+                firebaseAuth={firebase.auth()}
+              />
+          }
         </Toolbar>
       </AppBar>
     </div>

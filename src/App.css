@@ -19,6 +19,9 @@
   z-index: 2;
   width: 100%;
 }
+.zomato-trending-app-bar header{
+  height: 65px;
+}
 .zomato-app-bar-title-menu{
   display: flex;
   align-items: center;
@@ -68,6 +71,31 @@
 .zomato-home{
   margin-top:80px;
 }
+.zomato-navbar-title{
+  font-size: x-large;
+  font-family: 'Lobster', cursive;
+}
+.navbar-logout{
+  background: hsla(0,0%,62%,.2);
+  box-shadow: 0 2px 2px 0 rgba(0,0,0,.14), 0 3px 1px -2px rgba(0,0,0,.2), 0 1px 5px 0 rgba(0,0,0,.12);
+  background-color: transparent;
+  border: none;
+  width: 80px;
+  height: 25px;
+  outline: none;
+  cursor: pointer;
+}
+.navbar-google-signin{
+  margin: 0 !important;
+}
+.zomato-user-not-signedin{
+  margin-top: 80px;
+  text-align: center;
+  font-family: 'lobster';
+  font-weight: bolder;
+  color: rgba(0,0,0,0.4)
+}
+
 .zomato-side-navbar{
   border-top: 1px solid rgba(0,0,0,0.1);
   width: 250px;
@@ -142,12 +170,15 @@
   background-color: green !important;
 }
 .zomato-bookings-card-button:hover{
-    background-color: rgb(2, 75, 2) !important;
+  background-color: rgb(2, 75, 2) !important;
 }
 .zomato-user-profile{
-  margin-top: 80px;
   display: flex;
   justify-content: center;
+  margin: 7% 35%;
+  box-shadow: 0 2px 2px 0 rgba(0,0,0,.14), 0 3px 1px -2px rgba(0,0,0,.2), 0 1px 5px 0 rgba(0,0,0,.12);
+  padding: 2% 1%;
+  flex-direction: column;
 }
 .zomato-user-profile-avatar{
   position: relative;
@@ -156,7 +187,7 @@
   height: 200px;
   position: absolute;
   border-radius: 50%;
-  /* left: 100px; */
+  left: 85px;
 }
 .zomato-user-profile-details{
   margin-top: 250px;
@@ -217,4 +248,10 @@
 }
 .restaurant-quickview-description{
   margin: 0% 5%;
+}
+.fa-edit{
+  text-align: -webkit-right;
+  font-size: larger;
+  color: rgba(0,0,0,0.7);
+  cursor: pointer;
 }

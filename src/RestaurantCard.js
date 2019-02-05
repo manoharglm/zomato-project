@@ -7,7 +7,6 @@ import CardContent from "@material-ui/core/CardContent";
 import CardMedia from "@material-ui/core/CardMedia";
 import Button from "@material-ui/core/Button";
 
-
 const RestaurantCard = (props)=> {
     return (
         <div className="zomato-trending-card" key={props.restaurantData.id}>

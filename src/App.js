@@ -12,12 +12,12 @@ import RestaurantBookings from './RestaurantBookings'
 import UserProfile from './UserProfile'
 import BookTable from './BookTable'
 import RestaurantQucikView from './RestaurantQuickView'
+import EditUserDetails from './EditUserDetails'
 import firebase from 'firebase'
-import StyledFirebaseAuth from 'react-firebaseui/StyledFirebaseAuth'
 
 firebase.initializeApp({
-  apiKey:'AIzaSyCX0DNvg_Mu3BgfG5tgwljLCdiLsoPZM04',
-  authDomain:'zomato-project-manohar.firebaseapp.com'
+  apiKey: 'AIzaSyCX0DNvg_Mu3BgfG5tgwljLCdiLsoPZM04',
+  authDomain: 'zomato-project-manohar.firebaseapp.com'
 })
 
 class App extends Component {
@@ -31,16 +31,18 @@ class App extends Component {
       sideNavBar: false,
       bookingsPage: false,
       profilePage: false,
-      trndingPage:false,
-      username:'manohar',
-      bookTableDialogBox:false,
-      restaurantData:[],
-      restaurantQucikView:false,
-      restaurantQucikViewData:'',
-      signedIn:false,
+      trndingPage: false,
+      username: null,
+      userDetails: '',
+      bookTableDialogBox: false,
+      restaurantData: [],
+      restaurantQucikView: false,
+      restaurantQucikViewData: '',
+      signedIn: false,
+      editUserDetails:false
     };
   }
-  uiConfig = { 
+  uiConfig = {
     signInFlow: "popup",
     signInOptions: [
       firebase.auth.GoogleAuthProvider.PROVIDER_ID,
@@ -49,21 +51,28 @@ class App extends Component {
       signInSuccess: () => false
     }
   }
-  componentDidMount = () =>{
-    firebase.auth().onAuthStateChanged(user =>{
+  componentDidMount = () => {
+    firebase.auth().onAuthStateChanged(user => {
       this.setState({
-        signedIn:!!user
+        signedIn: !!user,
+        username: user.email
       })
+      if (!!user) {
+        RequestsAPI.createUser(user).then(data => {
+          return null
+        })
+      }
+
     })
   }
   getSearchText = (e) => {
-      this.setState({
-        searchText: e.target.value
-      })
+    this.setState({
+      searchText: e.target.value
+    })
   }
   getSearchResults = (e) => {
     e.preventDefault()
-    if((this.state.searchText).length >= 0){
+    if ((this.state.searchText).length >= 0) {
       RequestsAPI.getSearchResults(this.state.searchText).then(restaurants => {
         this.setState({
           searchResults: restaurants
@@ -86,7 +95,7 @@ class App extends Component {
       bookingsPage: !this.state.bookingsPage
     })
   }
-  gotoProfile = () => {    
+  gotoProfile = () => {
     this.setState({
       profilePage: !this.state.profilePage
     })
@@ -94,39 +103,59 @@ class App extends Component {
   gotoTrending = () => {
     this.setState({
       trndingPage: !this.state.trndingPage
-    })  
-    // function Transition(props) {
-    //     return <Slide direction="up" {...props} />;
-    // }
-    
-  }
-  restaurantDataToBookTable = (restaurant) =>{
-    this.setState({
-      bookTableDialogBox: !this.state.bookTableDialogBox,
-      restaurantData:restaurant
     })
   }
-  handleRestaurantQuickView=(restaurant)=>{
+  restaurantDataToBookTable = (restaurant) => {
+    if (this.state.signedIn) {
+      this.setState({
+        bookTableDialogBox: !this.state.bookTableDialogBox,
+        restaurantData: restaurant
+      })
+    } else {
+      alert('Please Signin')
+    }
+  }
+  handleRestaurantQuickView = (restaurant) => {
     this.setState({
-      restaurantQucikView:!this.state.restaurantQucikView,
-      restaurantQucikViewData:restaurant
+      restaurantQucikView: !this.state.restaurantQucikView,
+      restaurantQucikViewData: restaurant
     })
   }
-  bookTable =(people,date,time)=>{
-    RequestsAPI.bookTable(people,date,time,this.state.restaurantData,this.state.username)
+  bookTable = (people, date, time) => {
+    RequestsAPI.bookTable(people, date, time, this.state.restaurantData, this.state.username)
+  }
+  signOut = () => {
+    firebase.auth().signOut()
+    this.setState({
+      username: '',
+      signedIn: false,
+      userDetails:'',
+    })
+  }
+  userData = () => {
+      RequestsAPI.getUserData(this.state.username)
+      .then(userDetails => {
+        this.setState({
+          userDetails
+        })
+      })
+  }
+  handleEditUserDetails=()=>{
+    this.setState({
+      editUserDetails:!this.state.editUserDetails
+    })
+  }
+  editUserDetailsFun=(name,phone,email)=>{
+    RequestsAPI.editUserDetails(name,phone,email)
+    this.userData()
   }
   render() {
+      if(this.state.signedIn && this.state.userDetails === ''){
+        this.userData()
+      }
     return (
       <Router>
         <div className="App">
-      (this.state.signedIn)
-      ? {console.log("signed in");
-      }
-      : <StyledFirebaseAuth
-            uiConfig={this.uiConfig}
-            firebaseAuth={firebase.auth()}
-          />
-    
           <SideNavigationBar
             openSideNavigationBar={this.openSideNavigationBar}
             open={this.state.sideNavBar}
@@ -138,16 +167,25 @@ class App extends Component {
             getSearchText={this.getSearchText}
             getSearchResults={this.getSearchResults}
             openSideNavigationBar={this.openSideNavigationBar}
+            signedIn={this.state.signedIn}
+            uiConfig={this.uiConfig}
+            signOut={this.signOut}
           />
           <BookTable
             bookTableDialogBox={this.state.bookTableDialogBox}
             restaurantDataToBookTable={this.restaurantDataToBookTable}
-            bookTable = {this.bookTable}
+            bookTable={this.bookTable}
           />
           <RestaurantQucikView
             openQuickView={this.state.restaurantQucikView}
             handleRestaurantQuickView={this.handleRestaurantQuickView}
             restaurantData={this.state.restaurantQucikViewData}
+          />
+          <EditUserDetails
+            editUserDetails = {this.state.editUserDetails}
+            handleEditUserDetails = {this.handleEditUserDetails}
+            userDetails={this.state.userDetails}
+            editUserDetailsFun={this.editUserDetailsFun}
           />
           <Switch>
             <Route path='/' exact render={() =>
@@ -159,17 +197,23 @@ class App extends Component {
               <TrendingRestaurants
                 restaurantDataToBookTable={this.restaurantDataToBookTable}
                 handleRestaurantQuickView={this.handleRestaurantQuickView}
-              />}  
+              />}
             />
             <Route path='/bookings' exact render={() =>
               <RestaurantBookings
                 username={this.state.username}
+                bookings={this.state.bookings}
               />
             } />
             <Route path='/profile' exact render={() =>
-              <UserProfile
-                username={this.state.username}
-              />
+              (this.state.userDetails === '')
+                ? <p className='zomato-user-not-signedin'  >You are not signed in</p>
+                :
+                <UserProfile
+                  username={this.state.username}
+                  userDetails={this.state.userDetails}
+                  handleEditUserDetails={this.handleEditUserDetails}
+                />
             } />
 
             <Route path='/search' exact render={() =>
@@ -194,20 +238,20 @@ class App extends Component {
               ? <Redirect to={{
                 pathname: '/bookings',
                 username: this.state.username,
-              }}/>
+              }} />
               : null
           }
           {
             (this.state.profilePage)
-            ? <Redirect to={{
-              pathname: '/profile',
-              username: this.state.username,
-            }}/>              
-            : null
+              ? <Redirect to={{
+                pathname: '/profile',
+                username: this.state.username,
+              }} />
+              : null
           }
           {
             (this.state.trndingPage)
-              ? <Redirect to='/trending'  />
+              ? <Redirect to='/trending' />
               : null
           }
         </div>

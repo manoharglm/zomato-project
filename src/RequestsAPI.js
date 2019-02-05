@@ -29,7 +29,7 @@ let getBookingData=(user)=>{
       }
     ).then(res => res.json())
 }
-let bookTable = (people,date,time,restaurantData,user) =>{
+let bookTable = (people,date,time,restaurantData,email) =>{
     let bodyData = {
         'numberOfPeople': people,
         'date': date,
@@ -42,28 +42,60 @@ let bookTable = (people,date,time,restaurantData,user) =>{
         method: "POST",
         headers: {
         "Content-Type": "application/json",
-        'referrer': user
+        'referrer': email
         },
         body: JSON.stringify(bodyData)
     }
     ).then(res => res)
 }
-let getUserData = (user) =>{
+let getUserData = (userEmail) =>{
   return fetch(
     `http://localhost:5000/api/user`,
     {
       headers: {
         "Content-Type": "application/json",
-        "referrer": user,
+        "referrer": userEmail,
       },
     }
   ).then(res => res.json())
 }
-
+let createUser = (userData) =>{
+  let bodyData = {
+    'name':userData.displayName,
+    'email': userData.email,
+    'date':Date(),
+    'phone':userData.phoneNumber,
+    'photoURL':userData.photoURL,
+  }
+return fetch(`http://localhost:5000/api/user`,{
+    method: "POST",
+    headers: {
+    "Content-Type": "application/json",
+    },
+    body: JSON.stringify(bodyData)
+}).then(res => res)
+}
+let editUserDetails = (name,phone,userEmail)=>{
+  let bodyData = {
+    'name':name,
+    'phone':phone,
+  }
+  console.log(bodyData)
+return fetch(`http://localhost:5000/api/user`,{
+    method: "PUT",
+    headers: {
+    "Content-Type": "application/json",
+    "referrer": userEmail,
+    },
+    body: JSON.stringify(bodyData)
+}).then(res => res)
+}
 module.exports = {
     getTrendingRestaurants,
     getSearchResults,
     getBookingData,
     bookTable,
-    getUserData
+    getUserData,
+    createUser,
+    editUserDetails
 }

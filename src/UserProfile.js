@@ -1,43 +1,25 @@
-import React, { Component } from 'react';
-import RequestsAPI from "./RequestsAPI";
+import React from 'react';
 
-class UserProfile extends Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      userDetails: [],
-    };
-  }
-  componentDidMount() {
-    RequestsAPI.getUserData(this.props.username)
-      .then(userDetails => {
-        this.setState({
-          userDetails
-        })
-      })
-  }
-
-  render() {
+const UserProfile = (props)=> {
     return (
       <div className='zomato-user-profile'>
+      <i onClick={()=>props.handleEditUserDetails()} class="fas fa-edit"></i>
         <div className='zomato-user-profile-avatar'>
-          <img alt='user avatar' src={this.state.userDetails.photoURL}></img>
+          <img alt='user avatar' src={props.userDetails.photoURL}></img>
         </div>
         <div className='zomato-user-profile-details'>
           <section>
-            <span className='zomato-user-profile-username'>{this.state.userDetails.username}</span>
-            <span>{`Member since ${this.state.userDetails.date}`}</span>
+            <span className='zomato-user-profile-username'>{props.userDetails.name}</span>
+            <span>{`Member since ${props.userDetails.date}`}</span>
           </section>
           <section>
             <h5>User Details</h5>
-            <p>{this.state.userDetails.email}</p>
-            <p>{this.state.userDetails.phone}</p>
+            <p>{props.userDetails.email}</p>
+            <p>{props.userDetails.phone}</p>
           </section>
         </div>
-
       </div>
     );
-  }
 }
 
 export default UserProfile;
