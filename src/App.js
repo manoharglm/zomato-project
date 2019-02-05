@@ -12,7 +12,6 @@ import RestaurantBookings from './RestaurantBookings'
 import UserProfile from './UserProfile'
 import BookTable from './BookTable'
 import RestaurantQucikView from './RestaurantQuickView'
-import EditUserDetails from './EditUserDetails'
 import firebase from 'firebase'
 
 firebase.initializeApp({
@@ -33,13 +32,11 @@ class App extends Component {
       profilePage: false,
       trndingPage: false,
       username: null,
-      userDetails: '',
       bookTableDialogBox: false,
       restaurantData: [],
       restaurantQucikView: false,
       restaurantQucikViewData: '',
       signedIn: false,
-      editUserDetails:false
     };
   }
   uiConfig = {
@@ -59,10 +56,10 @@ class App extends Component {
       })
       if (!!user) {
         RequestsAPI.createUser(user).then(data => {
+          console.log(data)
           return null
         })
       }
-
     })
   }
   getSearchText = (e) => {
@@ -129,30 +126,9 @@ class App extends Component {
     this.setState({
       username: '',
       signedIn: false,
-      userDetails:'',
     })
-  }
-  userData = () => {
-      RequestsAPI.getUserData(this.state.username)
-      .then(userDetails => {
-        this.setState({
-          userDetails
-        })
-      })
-  }
-  handleEditUserDetails=()=>{
-    this.setState({
-      editUserDetails:!this.state.editUserDetails
-    })
-  }
-  editUserDetailsFun=(name,phone,email)=>{
-    RequestsAPI.editUserDetails(name,phone,email)
-    this.userData()
   }
   render() {
-      if(this.state.signedIn && this.state.userDetails === ''){
-        this.userData()
-      }
     return (
       <Router>
         <div className="App">
@@ -181,12 +157,6 @@ class App extends Component {
             handleRestaurantQuickView={this.handleRestaurantQuickView}
             restaurantData={this.state.restaurantQucikViewData}
           />
-          <EditUserDetails
-            editUserDetails = {this.state.editUserDetails}
-            handleEditUserDetails = {this.handleEditUserDetails}
-            userDetails={this.state.userDetails}
-            editUserDetailsFun={this.editUserDetailsFun}
-          />
           <Switch>
             <Route path='/' exact render={() =>
               <HomePage
@@ -201,18 +171,17 @@ class App extends Component {
             />
             <Route path='/bookings' exact render={() =>
               <RestaurantBookings
+                key={this.state.username}
                 username={this.state.username}
                 bookings={this.state.bookings}
+                restaurantData={this.state.restaurantData}
+                handleRestaurantQuickView = {this.handleRestaurantQuickView}
               />
             } />
             <Route path='/profile' exact render={() =>
-              (this.state.userDetails === '')
-                ? <p className='zomato-user-not-signedin'  >You are not signed in</p>
-                :
                 <UserProfile
+                  key={this.state.username}
                   username={this.state.username}
-                  userDetails={this.state.userDetails}
-                  handleEditUserDetails={this.handleEditUserDetails}
                 />
             } />
 

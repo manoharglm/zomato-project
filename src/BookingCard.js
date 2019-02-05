@@ -30,14 +30,11 @@ let BookingCard = (props) => {
                         <span></span>
                     </div>
                 </div>
-                <Button variant="contained" className='zomato-bookings-card-button'>
+                <Button onClick={()=>props.handleRestaurantQuickView(props.bookingData.restaurantData)} variant="contained" className='zomato-bookings-card-button'>
                     View Restaurant      
                 </Button>
             </div>
         </div>
     );
 }
-
-
-
 export default BookingCard;

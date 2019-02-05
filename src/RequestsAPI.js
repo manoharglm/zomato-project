@@ -49,15 +49,15 @@ let bookTable = (people,date,time,restaurantData,email) =>{
     ).then(res => res)
 }
 let getUserData = (userEmail) =>{
-  return fetch(
-    `http://localhost:5000/api/user`,
-    {
-      headers: {
-        "Content-Type": "application/json",
-        "referrer": userEmail,
-      },
-    }
-  ).then(res => res.json())
+    return fetch(
+      `http://localhost:5000/api/user`,
+      {
+        headers: {
+          "Content-Type": "application/json",
+          "referrer": userEmail,
+        },
+      }
+    ).then(res => res.json())
 }
 let createUser = (userData) =>{
   let bodyData = {
@@ -80,7 +80,6 @@ let editUserDetails = (name,phone,userEmail)=>{
     'name':name,
     'phone':phone,
   }
-  console.log(bodyData)
 return fetch(`http://localhost:5000/api/user`,{
     method: "PUT",
     headers: {
@@ -88,7 +87,7 @@ return fetch(`http://localhost:5000/api/user`,{
     "referrer": userEmail,
     },
     body: JSON.stringify(bodyData)
-}).then(res => res)
+}).then(res => res.json())
 }
 module.exports = {
     getTrendingRestaurants,

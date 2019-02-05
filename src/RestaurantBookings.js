@@ -17,6 +17,7 @@ class RestaurantBookings extends Component {
     })
   }
   render() {
+    console.log('rendering')
     return (
       (this.state.bookings.length===0)
         ? <p className='zomato-user-not-signedin'>No Bookings</p>
@@ -28,6 +29,8 @@ class RestaurantBookings extends Component {
               this.state.bookings.map(booking => {
                 return <BookingCard
                   bookingData={booking}
+                  restaurantData={this.props.restaurantData}
+                  handleRestaurantQuickView={this.props.handleRestaurantQuickView}
                 />
               })
             }

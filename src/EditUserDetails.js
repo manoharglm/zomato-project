@@ -19,7 +19,13 @@ class EditUserDetails extends React.Component {
             [`${e.target.name}`]: e.target.value
         })
     }
-    render() {   
+    componentDidMount(){
+        this.setState({
+            name:this.props.userDetails.name,
+            phone:this.props.userDetails.phone
+        })
+    }
+    render() {
         return (
             <div>
                 <Dialog
