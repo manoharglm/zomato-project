@@ -6,6 +6,8 @@ import InputBase from "@material-ui/core/InputBase";
 import MenuIcon from "@material-ui/icons/Menu";
 import firebase from 'firebase'
 import StyledFirebaseAuth from 'react-firebaseui/StyledFirebaseAuth'
+import { NavLink } from 'react-router-dom'
+
 
 const NavigationBar = (props) => {
   return (
@@ -20,9 +22,11 @@ const NavigationBar = (props) => {
               >
               <MenuIcon/>
             </IconButton>
-            <p className='zomato-navbar-title'  noWrap>
+            <NavLink to='/trending' className='zomato-navbar-title-navlink' exact>
+            <p className='zomato-navbar-title'>
               Book A Table
             </p>
+            </NavLink>
           </section>
           <form className="zomato-trending-app-bar-search" onSubmit={(e) => props.getSearchResults(e)}>
             <InputBase 

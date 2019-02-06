@@ -14,6 +14,7 @@ const RestaurantsSearch = (props) => {
                             <RestaurantCard 
                                 restaurantData={restaurant} 
                                 restaurantDataToBookTable={props.restaurantDataToBookTable}
+                                handleRestaurantQuickView={props.handleRestaurantQuickView}
                             />
                         </div>
                     )                

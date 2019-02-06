@@ -26,6 +26,9 @@
   display: flex;
   align-items: center;
 }
+.zomato-navbar-title-navlink{
+  color: black;
+}
 .zomato-trending-card-image{
   height: 200px;
   width: 400px;

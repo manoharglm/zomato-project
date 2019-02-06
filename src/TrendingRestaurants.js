@@ -30,6 +30,7 @@ class TrendingRestaurants extends Component {
           {
             this.state.trendingRestaurants.map(restaurant => {
               return <RestaurantCard 
+                        key={restaurant.id}
                         restaurantData={restaurant} 
                         restaurantDataToBookTable={this.props.restaurantDataToBookTable}
                         handleRestaurantQuickView={this.props.handleRestaurantQuickView}

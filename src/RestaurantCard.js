@@ -23,18 +23,21 @@ const RestaurantCard = (props)=> {
                 <Typography gutterBottom variant="h5" component="h2">
                   {props.restaurantData.name}
                 </Typography>
-                <Typography component="p">
                   <p><b>{props.restaurantData.location.city}</b></p>
                   <p>{props.restaurantData.location.address}</p>
-                  <p><b>Cuisines:</b>{props.restaurantData.cuisines}</p>
-                </Typography>
+                  <p>
+                    <b>Cuisines:</b>
+                    {props.restaurantData.cuisines}
+                  </p>
               </CardContent>
             </CardActionArea>
             <CardActions className='zomato-trending-card-footer'>
               <Button size="small" color="primary" onClick={()=>props.restaurantDataToBookTable(props.restaurantData)}>
                 Book Table
               </Button>
-              <p style={{backgroundColor:`#${props.restaurantData.user_rating.rating_color}`}} className='zomato-trending-card-rating-button'>
+              <p 
+                style={{backgroundColor:`#${props.restaurantData.user_rating.rating_color}`}} 
+                className='zomato-trending-card-rating-button'>
                   &#9733;{props.restaurantData.user_rating.aggregate_rating}                    
               </p>
             </CardActions>

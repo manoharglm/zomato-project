@@ -1,5 +1,6 @@
 import React from 'react';
 import Drawer from '@material-ui/core/Drawer';
+import { NavLink } from 'react-router-dom'
 
 const SideNavigationBar = (props) => {
     return (
@@ -9,10 +10,10 @@ const SideNavigationBar = (props) => {
             onClose={()=>props.openSideNavigationBar()}
         >
           <div className='zomato-side-navbar' onClick={()=>props.openSideNavigationBar()}>
-              <button onClick={()=>props.gotoTrending()}>Trending</button>
-              <button onClick={()=>props.gotoBookings()}>Bookings</button>
-              <button onClick={()=>props.gotoProfile()}>Profile</button>
-              <button>About Us</button>
+              <NavLink to="/trending"><button>Trending</button></NavLink>
+              <NavLink to="/bookings"><button>Bookings</button></NavLink>
+              <NavLink to="/profile"><button>Profile</button></NavLink>
+              <a href="https://github.com/manoharglm" rel="noopener noreferrer" target='_blank'><button>About Us</button></a>
           </div>
         </Drawer>
       </div>

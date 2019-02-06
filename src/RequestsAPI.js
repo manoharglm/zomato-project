@@ -73,7 +73,7 @@ return fetch(`http://localhost:5000/api/user`,{
     "Content-Type": "application/json",
     },
     body: JSON.stringify(bodyData)
-}).then(res => res)
+})
 }
 let editUserDetails = (name,phone,userEmail)=>{
   let bodyData = {

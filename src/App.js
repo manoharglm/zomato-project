@@ -6,7 +6,6 @@ import TrendingRestaurants from './TrendingRestaurants'
 import RestaurantsSearch from './RestaurantsSearch'
 import NavigationBar from "./NavigationBar";
 import RequestsAPI from "./RequestsAPI";
-import HomePage from './HomePage'
 import SideNavigationBar from './SideNavigationBar';
 import RestaurantBookings from './RestaurantBookings'
 import UserProfile from './UserProfile'
@@ -26,11 +25,7 @@ class App extends Component {
       searchText: '',
       searchResults: [],
       gotoSearch: false,
-      login: false,
       sideNavBar: false,
-      bookingsPage: false,
-      profilePage: false,
-      trndingPage: false,
       username: null,
       bookTableDialogBox: false,
       restaurantData: [],
@@ -55,10 +50,7 @@ class App extends Component {
         username: user.email
       })
       if (!!user) {
-        RequestsAPI.createUser(user).then(data => {
-          console.log(data)
-          return null
-        })
+        RequestsAPI.createUser(user)
       }
     })
   }
@@ -77,29 +69,9 @@ class App extends Component {
       });
     }
   }
-  handleLogin = (bool) => {
-    this.setState({
-      login: bool
-    })
-  }
   openSideNavigationBar = () => {
     this.setState({
       sideNavBar: !this.state.sideNavBar
-    })
-  }
-  gotoBookings = () => {
-    this.setState({
-      bookingsPage: !this.state.bookingsPage
-    })
-  }
-  gotoProfile = () => {
-    this.setState({
-      profilePage: !this.state.profilePage
-    })
-  }
-  gotoTrending = () => {
-    this.setState({
-      trndingPage: !this.state.trndingPage
     })
   }
   restaurantDataToBookTable = (restaurant) => {
@@ -158,11 +130,6 @@ class App extends Component {
             restaurantData={this.state.restaurantQucikViewData}
           />
           <Switch>
-            <Route path='/' exact render={() =>
-              <HomePage
-                handleLogin={this.handleLogin}
-              />
-            } />
             <Route path='/trending' exact render={() =>
               <TrendingRestaurants
                 restaurantDataToBookTable={this.restaurantDataToBookTable}
@@ -189,6 +156,7 @@ class App extends Component {
               <RestaurantsSearch
                 searchResults={this.state.searchResults}
                 restaurantDataToBookTable={this.restaurantDataToBookTable}
+                handleRestaurantQuickView={this.handleRestaurantQuickView}
               />
             } />
           </Switch>
@@ -197,36 +165,9 @@ class App extends Component {
               ? <Redirect to='/search' />
               : null
           }
-          {
-            (this.state.login)
-              ? <Redirect to='/trending' />
-              : null
-          }
-          {
-            (this.state.bookingsPage)
-              ? <Redirect to={{
-                pathname: '/bookings',
-                username: this.state.username,
-              }} />
-              : null
-          }
-          {
-            (this.state.profilePage)
-              ? <Redirect to={{
-                pathname: '/profile',
-                username: this.state.username,
-              }} />
-              : null
-          }
-          {
-            (this.state.trndingPage)
-              ? <Redirect to='/trending' />
-              : null
-          }
         </div>
       </Router>
     );
   }
 }
-
 export default App;
