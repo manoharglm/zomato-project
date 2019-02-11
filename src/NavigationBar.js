@@ -7,7 +7,17 @@ import MenuIcon from "@material-ui/icons/Menu";
 import firebase from 'firebase'
 import StyledFirebaseAuth from 'react-firebaseui/StyledFirebaseAuth'
 import { NavLink } from 'react-router-dom'
+import { connect } from "react-redux";
 
+const uiConfig = {
+  signInFlow: "popup",
+  signInOptions: [
+    firebase.auth.GoogleAuthProvider.PROVIDER_ID,
+  ],
+  callbacks: {
+    signInSuccess: () => false
+  }
+}
 
 const NavigationBar = (props) => {
   return (
@@ -18,7 +28,7 @@ const NavigationBar = (props) => {
             <IconButton 
               color="inherit" 
               aria-label="Open drawer"
-              onClick={()=>props.openSideNavigationBar()}
+              onClick={props.openSideNavigationBar}
               >
               <MenuIcon/>
             </IconButton>
@@ -42,7 +52,7 @@ const NavigationBar = (props) => {
               ? <button className='navbar-logout' onClick={() => props.signOut()}>logout</button>
               : <StyledFirebaseAuth
                 className='navbar-google-signin'
-                uiConfig={props.uiConfig}
+                uiConfig={uiConfig}
                 firebaseAuth={firebase.auth()}
               />
           }
@@ -51,5 +61,15 @@ const NavigationBar = (props) => {
     </div>
   )
 }
+const mapStateToProps = state => {
+  return {
+    open: state.open,
+  };
+};
+const mapDispatchToProps = dispatch => {
+  return {
+    openSideNavigationBar: () => dispatch({ type: "HANDLE_SIDE_NAV"}),
+  };
+};
 
-export default NavigationBar;
+export default connect(mapStateToProps, mapDispatchToProps)  (NavigationBar);

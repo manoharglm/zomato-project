@@ -42,5 +42,4 @@ class TrendingRestaurants extends Component {
     );
   }
 }
-
 export default TrendingRestaurants;

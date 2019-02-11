@@ -8,6 +8,7 @@ let getTrendingRestaurants=()=>{
         }
       ).then(res => res.json())
 }
+
 let getSearchResults=(searchText)=>{
   return fetch(
       `http://localhost:5000/api/restaurants/search/${searchText}`,
@@ -18,6 +19,7 @@ let getSearchResults=(searchText)=>{
       }
     ).then(res => res.json())
 }
+
 let getBookingData=(user)=>{
   return fetch(
       `http://localhost:5000/api/bookings`,
@@ -29,6 +31,7 @@ let getBookingData=(user)=>{
       }
     ).then(res => res.json())
 }
+
 let bookTable = (people,date,time,restaurantData,email) =>{
     let bodyData = {
         'numberOfPeople': people,
@@ -48,6 +51,8 @@ let bookTable = (people,date,time,restaurantData,email) =>{
     }
     ).then(res => res)
 }
+
+
 let getUserData = (userEmail) =>{
     return fetch(
       `http://localhost:5000/api/user`,
@@ -59,6 +64,8 @@ let getUserData = (userEmail) =>{
       }
     ).then(res => res.json())
 }
+
+
 let createUser = (userData) =>{
   let bodyData = {
     'name':userData.displayName,
@@ -67,28 +74,31 @@ let createUser = (userData) =>{
     'phone':userData.phoneNumber,
     'photoURL':userData.photoURL,
   }
-return fetch(`http://localhost:5000/api/user`,{
-    method: "POST",
-    headers: {
-    "Content-Type": "application/json",
-    },
-    body: JSON.stringify(bodyData)
-})
+  return fetch(`http://localhost:5000/api/user`,{
+      method: "POST",
+      headers: {
+      "Content-Type": "application/json",
+      },
+      body: JSON.stringify(bodyData)
+  })
 }
+
 let editUserDetails = (name,phone,userEmail)=>{
   let bodyData = {
     'name':name,
     'phone':phone,
   }
-return fetch(`http://localhost:5000/api/user`,{
-    method: "PUT",
-    headers: {
-    "Content-Type": "application/json",
-    "referrer": userEmail,
-    },
-    body: JSON.stringify(bodyData)
-}).then(res => res.json())
+  return fetch(`http://localhost:5000/api/user`,{
+      method: "PUT",
+      headers: {
+      "Content-Type": "application/json",
+      "referrer": userEmail,
+      },
+      body: JSON.stringify(bodyData)
+  }).then(res => res.json())
 }
+
+
 module.exports = {
     getTrendingRestaurants,
     getSearchResults,

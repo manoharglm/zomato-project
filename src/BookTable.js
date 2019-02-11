@@ -9,6 +9,7 @@ import InputLabel from '@material-ui/core/InputLabel';
 import MenuItem from '@material-ui/core/MenuItem';
 import FormControl from '@material-ui/core/FormControl';
 import Select from '@material-ui/core/Select';
+import { connect } from "react-redux";
 
 class BookTable extends React.Component {
     constructor(props) {
@@ -24,12 +25,17 @@ class BookTable extends React.Component {
             [`${e.target.name}`]: e.target.value
         })
     }
+    bookTableDialogBox =  () =>{
+        this.props.bookTable(this.state.people, this.state.date, this.state.time)
+        this.props.openBookTableDialogBox()
+        this.setState({people:''})
+    }
     render() {
         return (
             <div>
                 <Dialog
-                    open={this.props.bookTableDialogBox}
-                    onClose={() => this.props.restaurantDataToBookTable()}
+                    open={this.props.open}
+                    onClose={this.props.openBookTableDialogBox}
                     className='zomato-book-table-dialog-box'
                 >
                     <DialogTitle id="form-dialog-title">Book A Table</DialogTitle>
@@ -41,7 +47,6 @@ class BookTable extends React.Component {
                                 label="Date"
                                 type="date"
                                 name="date"
-                                // defaultValue="2017-05-24"
                                 InputLabelProps={{
                                     shrink: true,
                                 }}
@@ -51,7 +56,6 @@ class BookTable extends React.Component {
                                 label="Time"
                                 type="time"
                                 name="time"
-                                // defaultValue="07:30"
                                 InputLabelProps={{
                                     shrink: true,
                                 }}
@@ -78,16 +82,12 @@ class BookTable extends React.Component {
                         </FormControl>
                     </DialogContent>
                     <DialogActions>
-                        <Button onClick={() => this.props.restaurantDataToBookTable()} color="primary">
+                        <Button onClick={this.props.openBookTableDialogBox} color="primary">
                             Cancel
                         </Button>
                         <Button
                             color="primary"
-                            onClick={() => {
-                                this.setState({people:''})
-                                this.props.bookTable(this.state.people, this.state.date, this.state.time)
-                                this.props.restaurantDataToBookTable()
-                            }}
+                            onClick={this.bookTableDialogBox}
                         >
                             confirm
                         </Button>
@@ -97,4 +97,15 @@ class BookTable extends React.Component {
         );
     }
 }
-export default BookTable
+const mapStateToProps = state => {
+    return {
+      open: state.open,
+    };
+};
+
+const mapDispatchToProps = dispatch => {
+    return {
+        openBookTableDialogBox: () => dispatch({ type: "HANDLE_BOOK_TABLE"}),
+    };
+};
+export default connect(mapStateToProps, mapDispatchToProps) (BookTable);

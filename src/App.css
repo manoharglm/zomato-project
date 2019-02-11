@@ -110,11 +110,11 @@
   background: transparent;
   border: none;
   height: 50px;
-  width: 100%;
   font-size: large;
   font-family: inherit;
   outline: none;
   cursor: pointer;
+  padding-left:50px;
 }
 .zomato-side-navbar button:focus{
   background-color: rgb(0, 0, 0,0.1);

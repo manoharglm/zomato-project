@@ -1,13 +1,8 @@
 import React from 'react';
-import PropTypes from 'prop-types';
 import Dialog from '@material-ui/core/Dialog';
-import ListItemText from '@material-ui/core/ListItemText';
-import ListItem from '@material-ui/core/ListItem';
-import List from '@material-ui/core/List';
-import Divider from '@material-ui/core/Divider';
-import IconButton from '@material-ui/core/IconButton';
 import CloseIcon from '@material-ui/icons/Close';
 import Slide from '@material-ui/core/Slide';
+import { connect } from "react-redux";
 
 
 function Transition(props) {
@@ -15,12 +10,11 @@ function Transition(props) {
 }
 
 const RestaurantQuickView = (props) => {
-
     return (
         <div>
             <Dialog
                 fullScreen
-                open={props.openQuickView}
+                open={props.openRestaurantQuickView}
                 onClose={props.handleRestaurantQuickView}
                 TransitionComponent={Transition}
                 className='restaurant-quickview'
@@ -51,19 +45,19 @@ const RestaurantQuickView = (props) => {
                     <p><b>About {props.restaurantData.name}</b></p>
                     <p>{props.restaurantData.name} is a place designed to take the adventure, excitement and joy of eating to all new heights. A place dedicated to you and your favourite people in the world – your GANGS. Where your job is to WISH. And ours is to make your wishes come TRUE – in unprecedented, flavour-packed, deliciously delightful ways!</p>
                 </div>
-
-                {/* <List>
-                        <ListItem button>
-                            <ListItemText primary="Phone ringtone" secondary="Titania" />
-                        </ListItem>
-                        <Divider />
-                        <ListItem button>
-                            <ListItemText primary="Default notification ringtone" secondary="Tethys" />
-                        </ListItem>
-                    </List> */}
             </Dialog>
         </div>
     );
 }
-
-export default RestaurantQuickView;
+const mapStateToProps = state => {
+    return {
+      openRestaurantQuickView: state.openRestaurantQuickView,
+    };
+  };
+  
+const mapDispatchToProps = dispatch => {
+    return {
+        handleRestaurantQuickView: () => dispatch({ type: "HANDLE_RESTAURANT_QUICK_VIEW"}),
+    };
+};
+export default connect(mapStateToProps, mapDispatchToProps) (RestaurantQuickView);

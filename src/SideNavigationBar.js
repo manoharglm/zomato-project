@@ -1,15 +1,16 @@
 import React from 'react';
 import Drawer from '@material-ui/core/Drawer';
 import { NavLink } from 'react-router-dom'
+import { connect } from "react-redux";
 
 const SideNavigationBar = (props) => {
     return (
       <div>
         <Drawer 
             open={props.open} 
-            onClose={()=>props.openSideNavigationBar()}
+            onClose={props.openSideNavigationBar}
         >
-          <div className='zomato-side-navbar' onClick={()=>props.openSideNavigationBar()}>
+          <div className='zomato-side-navbar' onClick={props.openSideNavigationBar}>
               <NavLink to="/trending"><button>Trending</button></NavLink>
               <NavLink to="/bookings"><button>Bookings</button></NavLink>
               <NavLink to="/profile"><button>Profile</button></NavLink>
@@ -19,4 +20,16 @@ const SideNavigationBar = (props) => {
       </div>
     );
 }
-export default SideNavigationBar;
+
+const mapStateToProps = state => {
+  return {
+    open: state.open,
+  };
+};
+
+const mapDispatchToProps = dispatch => {
+  return {
+    openSideNavigationBar: () => dispatch({ type: "HANDLE_SIDE_NAV"}),
+  };
+};
+export default connect(mapStateToProps, mapDispatchToProps) (SideNavigationBar);

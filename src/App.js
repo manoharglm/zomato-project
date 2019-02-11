@@ -1,12 +1,12 @@
-import React, { Component } from 'react';
-import './App.css';
+import React, { Component } from 'react'
+import './App.css'
 import { BrowserRouter as Router, Switch, Redirect } from 'react-router-dom'
 import Route from 'react-router-dom/Route'
 import TrendingRestaurants from './TrendingRestaurants'
 import RestaurantsSearch from './RestaurantsSearch'
-import NavigationBar from "./NavigationBar";
-import RequestsAPI from "./RequestsAPI";
-import SideNavigationBar from './SideNavigationBar';
+import NavigationBar from "./NavigationBar"
+import RequestsAPI from "./RequestsAPI"
+import SideNavigationBar from './SideNavigationBar'
 import RestaurantBookings from './RestaurantBookings'
 import UserProfile from './UserProfile'
 import BookTable from './BookTable'
@@ -25,23 +25,11 @@ class App extends Component {
       searchText: '',
       searchResults: [],
       gotoSearch: false,
-      sideNavBar: false,
       username: null,
-      bookTableDialogBox: false,
       restaurantData: [],
-      restaurantQucikView: false,
       restaurantQucikViewData: '',
       signedIn: false,
     };
-  }
-  uiConfig = {
-    signInFlow: "popup",
-    signInOptions: [
-      firebase.auth.GoogleAuthProvider.PROVIDER_ID,
-    ],
-    callbacks: {
-      signInSuccess: () => false
-    }
   }
   componentDidMount = () => {
     firebase.auth().onAuthStateChanged(user => {
@@ -69,24 +57,17 @@ class App extends Component {
       });
     }
   }
-  openSideNavigationBar = () => {
-    this.setState({
-      sideNavBar: !this.state.sideNavBar
-    })
-  }
   restaurantDataToBookTable = (restaurant) => {
     if (this.state.signedIn) {
       this.setState({
-        bookTableDialogBox: !this.state.bookTableDialogBox,
         restaurantData: restaurant
       })
     } else {
       alert('Please Signin')
     }
   }
-  handleRestaurantQuickView = (restaurant) => {
+  handleRestaurantQuickViewFun = (restaurant) => {
     this.setState({
-      restaurantQucikView: !this.state.restaurantQucikView,
       restaurantQucikViewData: restaurant
     })
   }
@@ -100,23 +81,19 @@ class App extends Component {
       signedIn: false,
     })
   }
-  render() {
+  render(){
     return (
       <Router>
         <div className="App">
           <SideNavigationBar
             openSideNavigationBar={this.openSideNavigationBar}
             open={this.state.sideNavBar}
-            gotoBookings={this.gotoBookings}
-            gotoProfile={this.gotoProfile}
-            gotoTrending={this.gotoTrending}
           />
           <NavigationBar
             getSearchText={this.getSearchText}
             getSearchResults={this.getSearchResults}
             openSideNavigationBar={this.openSideNavigationBar}
             signedIn={this.state.signedIn}
-            uiConfig={this.uiConfig}
             signOut={this.signOut}
           />
           <BookTable
@@ -125,9 +102,8 @@ class App extends Component {
             bookTable={this.bookTable}
           />
           <RestaurantQucikView
-            openQuickView={this.state.restaurantQucikView}
-            handleRestaurantQuickView={this.handleRestaurantQuickView}
             restaurantData={this.state.restaurantQucikViewData}
+            handleRestaurantQuickViewFun={this.handleRestaurantQuickViewFun}
           />
           <Switch>
             <Route path='/trending' exact render={() =>
